@@ -1,0 +1,41 @@
+{% extends 'Base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="container" id="register">
+            <form method="POST">
+                <h1 class="header">Welcome!</h1>
+                <div class="inputFields">
+                    <input type="email" id="email" name="email" placeholder= "Email@adress.com...">
+                    <input type="firstName" id="firstName" name="firstName" placeholder= "First name...">
+                    <input type="surname" id="surname" name="surname" placeholder= "Surname...">
+                    <input type="username" id="username" name="username" placeholder= "Username...">
+                    <input type="password" id="password" name="password" placeholder= "Password...">
+                    <input type="password" id="password" name="repeatPassword" placeholder= "Repeat password...">
+                    <button type="submit" class="btn btnPrim">Register</button>
+                </div>
+                <div class="socialMediaLinks">
+                    <a href="www.twitter.com" >
+                        <img class="social" src="{{ url_for('static', filename='img/twitterGray.png') }}" alt="twitter">
+                    </a>
+                    <a href="www.twitter.com">
+                        <img class="social" src="{{ url_for('static', filename='img/githubGray.png') }}" alt="github">
+                    </a>
+                    <a href="www.twitter.com">
+                        <img class="social" src="{{ url_for('static', filename='img/linkedInGray.png') }}" alt="linkedIn">
+                    </a>
+                </div>
+                <div class="swapPage">
+                    <p>Already a member?</p>
+                    <button class="btn" type="submit" name="swapBtn" value="swap">Login</button>
+                </div>
+            </form>
+        </div>
+        <img class="logo" src="{{ url_for('static', filename='img/BlackCircle.png') }}" alt="Logo">
+        <img class="decoratioin" src="{{ url_for('static', filename='img/BirdsOnString2.png') }}" alt="Decoratioin">
+    {% endblock %}
+{% endblock %}

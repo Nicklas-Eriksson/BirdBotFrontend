@@ -1,0 +1,69 @@
+{% extends 'Base.html' %}
+{% block title %}Results{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="container" id="register">
+            <form method="POST">
+                <div class="header">
+                    <h1>Tweetalyzer...</h1>
+                </div>
+                <div class="x">
+                    <img id="questionmark" src="{{ url_for('static', filename='img/questionmark.png') }}" alt="?">
+                    <span class="tooltiptext">Analyze the state of twitter <br> to find out if the tweets <br> posted are of a positive / <br> neutral / negative nature.</span>
+                </div>
+                <img id="searchLogo" class="logo" src="{{ url_for('static', filename='img/TwitterUnderScope.png') }}" alt="TwitterLogo">
+                <div class="inputFields">
+                    <h4>Analyze the mood of Twitter by a search word / phrase</h4>
+                    <input type="searchWord" id="searchWord" name="searchWord" placeholder= "Search...">
+                    <div class="dropDownField">
+                        <div class="dropDown">
+                            <h5>Search from</h5>
+                            <select name="searchFrom" class="dropDown">
+                                <option value="Top results">Top Results</option>
+                                <option value="Latest results">Latest Results</option>
+                            </select>
+                        </div>
+                        <div class="dropDown">
+                            <h5>Number of tweets</h5>
+                            <select name="numberOfTweets" class="dropDown">
+                                <option value=10>10</option>
+                                <option value=25>25</option>
+                                <option value=50>50</option>
+                                <option value=75>75</option>
+                                <option value=100>100</option>
+                                <option value=250>250</option>
+                                <option value=500>500</option>
+                            </select>
+                        </div>
+                        <button id="searchBtn" type="submit" class="btn">Search</button>
+                    </div>
+                </div>
+                <div class="socialMediaLinks">
+                    <a href="www.twitter.com" >
+                        <img class="social" src="{{ url_for('static', filename='img/twitterGray.png') }}" alt="twitter">
+                    </a>
+                    <a href="www.twitter.com">
+                        <img class="social" src="{{ url_for('static', filename='img/githubGray.png') }}" alt="github">
+                    </a>
+                    <a href="www.twitter.com">
+                        <img class="social" src="{{ url_for('static', filename='img/linkedInGray.png') }}" alt="linkedIn">
+                    </a>                    
+                </div>
+                <div class="swapPage">
+                    <div id="loggedInAs">
+                        <p>Logged in as: </p>
+                        <b>{{values}}</b>
+                    </div>
+                    <button class="btn" type="submit" name="swapBtn" value="swap">Logout</button>
+                </div>
+            </form>            
+        </div>
+        <img class="logo" src="{{ url_for('static', filename='img/BlackCircle.png') }}" alt="Logo">
+        <img class="decoratioin" src="{{ url_for('static', filename='img/BirdsOnString2.png') }}" alt="Decoratioin">
+        
+    {% endblock %}
+{% endblock %}

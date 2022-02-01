@@ -1,0 +1,53 @@
+{% extends 'Base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+    <div class="container" id="result">
+        <h1 class="Header">Search Results</h1>
+        <div class="searchMade">
+            <h3>Search word / phrase</h3>
+            {% if values != None%}
+                <h5>"{{values[1][0]}}"</h5>
+            {% elif values == None%}
+                <h5>---</h5>
+            {% endif %}
+
+            <h3>Search from</h3>
+            {% if values != None%}
+                <h5>{{values[1][1]}}</h5>
+            {% elif values == None%}
+                <h5>---</h5>
+            {% endif %}
+
+            <h3>Tweets analyzed</h3>
+            {% if values != None%}
+                <h5>{{values[1][2]}}</h5>
+                <h5>Total amount of tweets successfully scraped:</h5>
+                <h5>{{values[2]}}</h5>
+            {% elif values == None%}
+                <h5>---</h5>
+            {% endif %}         
+        </div>
+        <div class="results">
+            {% if values != None%}
+                "{{values[1][0]}}" was analyzed with Natural Language Toolkit:
+                <ul>
+                    {% for post in values[0] %}
+                        <li>{{ post[1]}}: with {{ post[2] }} results at {{ post[0] }}%</li>
+                    {% endfor %}
+                </ul>
+            {% elif values == None%}
+                <p>Whops! Looks like the bot needs some new batteries!</p>
+            {% endif %}
+        </div>        
+        <div class="swapPage">
+            <form method="POST">
+                <button class="btn" type="submit" name="swapBtn" value="swap">Search again</button>
+            </form>
+        </div>                    
+    {% endblock %}
+{% endblock %}
