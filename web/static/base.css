@@ -22,6 +22,10 @@ p {
 	margin: 20px 0 30px;
 }
 
+ul{
+	list-style: none;
+}
+
 ::selection{
 	background-color: rgb(110, 110, 110);
 	color: #FFFF;
@@ -85,6 +89,53 @@ body {
 	max-width: 100%;
     height: 600px;
 	min-height: 480px;    
+}
+
+#resultContainer{
+	text-align: center;
+	list-style: none;	
+	align-items: center;
+}
+
+#noResults{
+	margin-left: 15%;
+	font-size: 20px;
+	background-color: rgba(255, 0, 0, 0.246);
+	padding: 10px;
+	width: fit-content;
+	border-radius: 5px;
+}
+
+.pillContainer{
+	background-color: #E5E5E5 ;
+	margin-top: 0%;
+	margin-left: 3%;
+	margin-right: 3%;
+	margin-bottom: 50%;
+	text-align: center;
+	height: 70%;
+	border-radius: 100px;
+}
+
+.searchMade{
+	align-items: center;
+}
+
+.results{
+	text-align: start;
+	margin-left: 40px;
+	margin-top: 30px;
+}
+
+.searchHeaders{
+	display: table-cell;
+	border: 1px solid transparent;
+	padding: 30px;
+	align-self: center;
+}
+
+#sh1{
+	display: table-cell;
 }
 
 .dropDownField{
@@ -220,7 +271,7 @@ input{
 }
 
 #searchLogo{
-	z-index: 111;
+	z-index: 80;
 	width: 120px;
 	position: absolute;
 	top: 8%;
@@ -265,6 +316,10 @@ input{
 	left: 1%;
 }
 
+.descriptionTxt{
+	text-align: center;
+}
+
 .header{
 	margin-top: 50px;
 	display: flexbox;
@@ -286,4 +341,87 @@ input{
 
 #code{
 	text-align: center;
+}
+
+.visible{
+	display: none;
+}
+
+.loaderWrapper{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #3E3E3E;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.loader{
+	display: inline-block;
+	width: 45px;
+	height: 45px;
+	position: relative;
+	border: 4px solid #fff;
+	animation: rotater 3s infinite ease;
+}
+
+.loaderInner{
+	vertical-align: top;
+	display: inline-block;
+	width: 100%;
+	background-color: #8DDED9;
+	animation: filler 3s infinite ease-in;
+}
+
+@keyframes rotater {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(180deg); }
+	50% { transform: rotate(180deg); }
+	75% { transform: rotate(360deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@keyframes filler {
+	0% { height: 0%; }
+	25% { height: 0%; }
+	50% { height: 100%; }
+	75% { height: 100%; }
+	100% { height: 0%; }	
+}
+
+.LoadingText{
+	position: absolute;
+	top: 60%;
+	color: #fff;
+	animation: fader 6s infinite ease-in;
+}
+
+@keyframes fader {
+	0% { opacity: 0% ; }
+	10% { opacity: 20% ; }
+	20% { opacity: 35% ; }
+	30% { opacity: 65% ; }
+	40% { opacity: 100% ; }
+	50% { opacity: 100% ; }
+	60% { opacity: 100%; }
+	70% { opacity: 65%; }
+	80% { opacity: 35%; }
+	90% { opacity: 20%; }	
+	100% { opacity: 0%; }	
+}
+
+#tweetItBtn{
+	position: fixed;
+	top: 85% ;
+	left: 55% ;
+}
+
+#searchAgainBtn{
+	position: fixed;
+	top: 85% ;
+	left: 75% ;
 }

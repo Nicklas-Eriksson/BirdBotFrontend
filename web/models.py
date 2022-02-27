@@ -1,8 +1,8 @@
-from enum import unique
 from . import Db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+#Database models for User.
 class User(Db.Model, UserMixin):
     id = Db.Column(Db.Integer, primary_key=True)
     isAdmin = Db.Column(Db.Boolean, default=False)

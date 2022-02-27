@@ -1,13 +1,11 @@
 import regex as re
-import random
-import string
-from itsdangerous import TimedJSONWebSignatureSerializer as serializer
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 SecretKey = os.getenv("SecretKey")
 
+#This class removes whitespaces and checks if passwords and emails meets te requirements.
 class Edit:
     def Login(username, password):
         username = "".join(username.split())
@@ -48,34 +46,3 @@ class Edit:
             return True
         else:
             return False
-
-class GenerateOrg:
-    def GetResetCode():
-        code = ""
-        i = 0
-        
-        while i < 8:
-            tempInt = random.randint(0, 9)
-            tempChar = random.choice(string.ascii_letters)
-            code += str(str(tempInt) + tempChar)
-            i += 1
-        
-        return code
-
-class Generate:
-    def GenCode():
-        code = ""
-        i = 0
-        
-        while i < 8:
-            tempInt = random.randint(0, 9)
-            tempChar = random.choice(string.ascii_letters)
-            code += str(str(tempInt) + tempChar)
-            i += 1
-        
-        return code
-
-    def GetToken():
-        s = serializer(SecretKey, 300)#5min
-        c = Generate.GenCode()
-        return (s.dumps({c: 1}).decode('utf-8'), c, s)

@@ -3,6 +3,7 @@ from glob import glob
 import regex as re
 from textblob import TextBlob
 from googletrans import Translator
+import math
 
 inconclusiveResults = []
 inconclusive = 0
@@ -14,6 +15,7 @@ extremelyHappy = 0
 totalNumber = 0
 
 class Analyze:
+    #Analyzes the mood of the tweets with Natural language toolkit (NLTK)
     def Mood(data, inputTuple):
         a = Analyze()
         global inconclusive
@@ -32,32 +34,47 @@ class Analyze:
         extremelyHappy = 0
         totalNumber = 0
 
+        print("Input Tuple len: " + str(len(inputTuple)))
+        tempIndex = 1
         for post in data:
-            userId = post[0]
-            username = post[1]
-            handle = post[2]
-            date = post[3]
-            tweet = post[4]
-            commentCountid = post[5]
-            retweetCount = post[6]
-            likes = post[7]
+            # userId = post[0]
+            # username = post[1]
+            # handle = post[2]
+            # date = post[3]
+            print("Post " + str(tempIndex) + ": ")
+            print(post)
+            try:
+                tweet = post[4]
+                print("try block done")
+            except:
+                print("except block done")
+                tweet = '.'
+            print(str(tempIndex))
+            tempIndex += 1
+            # commentCountid = post[5]
+            # retweetCount = post[6]
+            # likes = post[7]
                         
             if tweet:              
                 a.GradeMood(a.CleanUpPost(tweet))
-        
-        # if len(inconclusiveResults) > 0:
-        #     t = Translator()            
-        #     global inconclusive
-        #     inconclusive = 0 #Reset the inconclusive counter
 
-        #     for post in inconclusiveResults:
-        #         print("Old post:" + post)
-        #         out = t.translate(post, dest='en')
-        #         print(out)
-        #         a.GradeMood(out)
+        #GOOGLE TRANSLATE API.
+        #Turn off if it exceeds api limit
+        if len(inconclusiveResults) > 0:
+            t = Translator()            
+            inconclusive = 0 #Reset the inconclusive counter
+
+            for post in inconclusiveResults:
+                print("Old post:" + post)
+                out = t.translate(post, dest='en')
+                print(out)
+                a.GradeMood(out)
+        #Turn off if it exceeds api limit
 
         return a.CalculatePercent(inputTuple)       
 
+    #Grades the mood from into 6 different categories.
+    # Inconclusive, neutral, slightly unhappy/happy, extremely unhappy/happy.
     def GradeMood(a, tweet):   
         try:
             blob = TextBlob(tweet)
@@ -88,6 +105,7 @@ class Analyze:
         except:
             print("Fail @: sentiment analysis")
     
+    #Cleans up the tweet
     def CleanUpPost(a, tweet):
         try:
             tweet = re.sub(r'"', '', tweet)
@@ -105,6 +123,7 @@ class Analyze:
 
         return tweet
 
+    #Calculates the mood percent for the result display. 
     def CalculatePercent(a, inputTuple):
         try:
             global inconclusive
@@ -116,12 +135,12 @@ class Analyze:
             global totalNumber
             totalNumber =  inconclusive + neutral + slightlyUnhappy + extremelyUnhappy + slightlyHappy + extremelyHappy
 
-            percents = [(100*(inconclusive)/(totalNumber), "Inconclusive", inconclusive)]
-            percents += [(100*(neutral)/(totalNumber), "Neutral", neutral)]
-            percents += [(100*(slightlyUnhappy)/(totalNumber), "Sligthly unhappy", slightlyUnhappy)]
-            percents += [(100*(extremelyUnhappy)/(totalNumber), "Extremely unhappy", extremelyUnhappy)]
-            percents += [(100*(slightlyHappy)/(totalNumber), "Sligthly happy", slightlyHappy)]
-            percents += [(100*(extremelyHappy)/(totalNumber), "Extremely happy", extremelyHappy)]   
+            percents = [(math.floor(100*(inconclusive)/(totalNumber)*10)/10, "Inconclusive", inconclusive)]
+            percents += [(math.floor(100*(neutral)/(totalNumber)*10)/10, "Neutral", neutral)]
+            percents += [(math.floor(100*(slightlyUnhappy)/(totalNumber)*10)/10, "Slightly unhappy", slightlyUnhappy)]
+            percents += [(math.floor(100*(extremelyUnhappy)/(totalNumber)*10)/10, "Extremely unhappy", extremelyUnhappy)]
+            percents += [(math.floor(100*(slightlyHappy)/(totalNumber)*10)/10, "Slightly happy", slightlyHappy)]
+            percents += [(math.floor(100*(extremelyHappy)/(totalNumber*10)/10), "Extremely happy", extremelyHappy)]
 
             return (percents, inputTuple, totalNumber)
 

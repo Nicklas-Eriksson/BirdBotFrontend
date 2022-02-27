@@ -6,48 +6,75 @@
 
 {% block body %}
     {% block content %}
-    <div class="container" id="result">
+    <div class="container" id="resultContainer">
         <h1 class="Header">Search Results</h1>
+        <div class="pillContainer">
         <div class="searchMade">
-            <h3>Search word / phrase</h3>
+            <div class="searchHeaders">
+                <h3>Search word / phrase</h3>
+                {% if values != None%}
+                    <h5>"{{values[1][0]}}"</h5>
+                {% elif values == None%}
+                    <h5>---</h5>
+                {% endif %}
+            </div>
+            <div class="searchHeaders">
+                <h3>Search from</h3>
+                {% if values != None%}
+                    <h5>{{values[1][1]}}</h5>
+                {% elif values == None%}
+                    <h5>---</h5>
+                {% endif %}
+            </div>
+            <div id="subSh1" class="searchHeaders">
+                <h3>Tweets analyzed</h3>
+                {% if values != None%}
+                    <h5>{{values[1][2]}}</h5>
+                    {% elif values == None%}
+                    <h5>---</h5>
+                {% endif %}    
+            </div>
+        </div>
+        <div>
+            <h5>Total amount of tweets successfully scraped:</h5>
             {% if values != None%}
-                <h5>"{{values[1][0]}}"</h5>
-            {% elif values == None%}
-                <h5>---</h5>
-            {% endif %}
-
-            <h3>Search from</h3>
-            {% if values != None%}
-                <h5>{{values[1][1]}}</h5>
-            {% elif values == None%}
-                <h5>---</h5>
-            {% endif %}
-
-            <h3>Tweets analyzed</h3>
-            {% if values != None%}
-                <h5>{{values[1][2]}}</h5>
-                <h5>Total amount of tweets successfully scraped:</h5>
                 <h5>{{values[2]}}</h5>
             {% elif values == None%}
                 <h5>---</h5>
-            {% endif %}         
+            {% endif %}  
         </div>
         <div class="results">
             {% if values != None%}
                 "{{values[1][0]}}" was analyzed with Natural Language Toolkit:
                 <ul>
                     {% for post in values[0] %}
-                        <li>{{ post[1]}}: with {{ post[2] }} results at {{ post[0] }}%</li>
+                        <li>{{ post[1]}}: {{ post[2] }} results at {{ post[0] }}%</li>
                     {% endfor %}
                 </ul>
             {% elif values == None%}
-                <p>Whops! Looks like the bot needs some new batteries!</p>
+                <p id="noResults">Whops! Looks like the bot needs some new batteries!</p>
             {% endif %}
         </div>        
         <div class="swapPage">
             <form method="POST">
-                <button class="btn" type="submit" name="swapBtn" value="swap">Search again</button>
+                <button id="searchAgainBtn" type="submit" class="btn" name="swapBtn" value="swap">Search again</button>
+                <button id="tweetItBtn" class="btn" type="submit" name="tweetBtn" value="tweet">Tweet it!</button>
             </form>
-        </div>                    
+        </div>           
+        <div class="socialMediaLinks">
+            <a href="https://twitter.com/Bot_Bird_" >
+                <img class="social" src="{{ url_for('static', filename='img/twitterGray.png') }}" alt="twitter">
+            </a>
+            <a href="https://github.com/Nicklas-Eriksson">
+                <img class="social" src="{{ url_for('static', filename='img/githubGray.png') }}" alt="github">
+            </a>
+            <a href="https://www.linkedin.com/feed/">
+                <img class="social" src="{{ url_for('static', filename='img/linkedInGray.png') }}" alt="linkedIn">
+            </a>
+        </div>  
+        </div> 
+    </div> 
+        <img class="logo" src="{{ url_for('static', filename='img/BlackCircle.png') }}" alt="Logo">
+        <img class="decoratioin" src="{{ url_for('static', filename='img/BirdsOnString2.png') }}" alt="Decoratioin">      
     {% endblock %}
-{% endblock %}
+    {% endblock %}

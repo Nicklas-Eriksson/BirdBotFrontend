@@ -16,17 +16,19 @@ def start():
     program.config['SECRET_KEY'] = SecretKey
     program.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{database}'
     Db.init_app(program)
-    
-    #from web.views import views
-    from web.auth import auth
+        
+    from web.signInProcess.routes import signInBlueprint
+    from web.resetPasswordProcess.routes import resetBlueprint
+    from web.searchProcess.routes import searchBlueprint
     from web.models import User
 
-    #program.register_blueprint(views, url_prefix='/')
-    program.register_blueprint(auth, url_prefix='/')
+    program.register_blueprint(searchBlueprint, url_prefix='/')
+    program.register_blueprint(signInBlueprint, url_prefix='/')
+    program.register_blueprint(resetBlueprint, url_prefix='/')
     createDb(program)
 
     siteDirectionManager = login_manager.LoginManager()
-    siteDirectionManager.login_view = 'auth.login'
+    siteDirectionManager.login_view = 'signInBlueprint.login'
     siteDirectionManager.init_app(program) 
 
     @siteDirectionManager.user_loader

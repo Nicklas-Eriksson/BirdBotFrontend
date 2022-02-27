@@ -2,6 +2,8 @@
 {% block title %}Results{% endblock %}
 
 {% block head %}
+    <script src="jquery-3.6.0.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -16,8 +18,18 @@
                     <span class="tooltiptext">Analyze the state of twitter <br> to find out if the tweets <br> posted are of a positive / <br> neutral / negative nature.</span>
                 </div>
                 <img id="searchLogo" class="logo" src="{{ url_for('static', filename='img/TwitterUnderScope.png') }}" alt="TwitterLogo">
+
+                <div class="visible">
+                    <div class="loaderWrapper">
+                        <span class="loader">
+                            <span class="loaderInner"></span>
+                        </span>
+                        <h3 class="LoadingText">Scraping Twitter...</h3>
+                    </div>
+                </div>
+
                 <div class="inputFields">
-                    <h4>Analyze the mood of Twitter by a search word / phrase</h4>
+                    <h4 class="descriptionTxt">Analyze the mood of Twitter<br>by a search word / phrase</h4>
                     <input type="searchWord" id="searchWord" name="searchWord" placeholder= "Search...">
                     <div class="dropDownField">
                         <div class="dropDown">
@@ -39,31 +51,35 @@
                                 <option value=500>500</option>
                             </select>
                         </div>
-                        <button id="searchBtn" type="submit" class="btn">Search</button>
+                        <button onclick="loading();" id="searchBtn" type="submit" class="btn">Search</button>
                     </div>
                 </div>
                 <div class="socialMediaLinks">
-                    <a href="www.twitter.com" >
+                    <a href="https://twitter.com/Bot_Bird_" >
                         <img class="social" src="{{ url_for('static', filename='img/twitterGray.png') }}" alt="twitter">
                     </a>
-                    <a href="www.twitter.com">
+                    <a href="https://github.com/Nicklas-Eriksson">
                         <img class="social" src="{{ url_for('static', filename='img/githubGray.png') }}" alt="github">
                     </a>
-                    <a href="www.twitter.com">
+                    <a href="https://www.linkedin.com/feed/">
                         <img class="social" src="{{ url_for('static', filename='img/linkedInGray.png') }}" alt="linkedIn">
-                    </a>                    
+                    </a>
                 </div>
                 <div class="swapPage">
                     <div id="loggedInAs">
                         <p>Logged in as: </p>
                         <b>{{values}}</b>
                     </div>
-                    <button class="btn" type="submit" name="swapBtn" value="swap">Logout</button>
+                    <button class="btn" type="submit" name="swapBtn" value="swap" onclick="loading()">Logout</button>
                 </div>
             </form>            
         </div>
         <img class="logo" src="{{ url_for('static', filename='img/BlackCircle.png') }}" alt="Logo">
         <img class="decoratioin" src="{{ url_for('static', filename='img/BirdsOnString2.png') }}" alt="Decoratioin">
-        
+        <script type="text/javascript">
+            function loading(){
+                $(".visible").show();
+            }
+        </script>
     {% endblock %}
 {% endblock %}
